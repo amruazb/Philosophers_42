@@ -6,7 +6,7 @@
 /*   By: aabashee <aabashee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 05:36:18 by aabashee          #+#    #+#             */
-/*   Updated: 2024/03/24 05:36:21 by aabashee         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:52:06 by aabashee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	*handle_single_philo(t_philo *philo, int ttime)
 	size_t	target;
 	long	n_time;
 
+	(void)ttime;
 	ts = timestamp_new();
 	target = ts + (ttime * 1000);
 	while (ts < target)
@@ -93,9 +94,9 @@ bool	philo_eat(t_philo *philo)
 	philo->fork = 1;
 	philo->next->fork = 1;
 	philo->m_fork = philo->id;
-	philo->next->m_fork = philo->id;
-	philo->life = n_timestamp(&philo->life_t);
-	pthread_mutex_unlock(&philo->rlock);
+	philo->next->m_fork = philo->id;           // leave your id to the fork
+	philo->life = n_timestamp(&philo->life_t); // update the life time
+	pthread_mutex_unlock(&philo->rlock);       //
 	pthread_mutex_unlock(&philo->lock);
 	pthread_mutex_unlock(&philo->next->lock);
 	print_info(philo, 1);

@@ -6,7 +6,7 @@
 /*   By: aabashee <aabashee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 06:51:55 by aabashee          #+#    #+#             */
-/*   Updated: 2024/03/24 16:18:07 by aabashee         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:35:46 by aabashee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void	ft_mutex(t_philo *philo, int lock_flag)
 
 void	lock_order(t_philo *philo)
 {
-	if (philo->id % philo->philo_info->num_of_philo)
+	if (philo->id % philo->philo_info->num_of_philo)//odd
 	{
 		pthread_mutex_lock(&philo->lock);
 		pthread_mutex_lock(&philo->next->lock);
 	}
-	else
+	else//even
 	{
 		pthread_mutex_lock(&philo->next->lock);
 		pthread_mutex_lock(&philo->lock);

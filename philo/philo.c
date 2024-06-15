@@ -6,7 +6,7 @@
 /*   By: aabashee <aabashee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 06:52:14 by aabashee          #+#    #+#             */
-/*   Updated: 2024/03/26 09:56:10 by aabashee         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:39:10 by aabashee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ static void	*routine(void *philo_data)
 	philo = (t_philo *)philo_data;
 	while (philo->philo_info->num_of_philo == 1)
 		return (handle_single_philo(philo, philo->philo_info->time_to_die));
-	while (1)
+	while (true)
 	{
 		if (is_philo_dead(philo) || !philo->times_to_eat)
 			break ;
 		lock_order(philo);
 		pthread_mutex_lock(&philo->rlock);
 		if (!(philo->fork) && !(philo->next->fork)
-			&& philo->times_to_eat && !check_mirror_fork(philo))
+			&& philo->times_to_eat && !check_mirror_fork(philo))//check the id already took the fork
 			if (!philo_eat(philo))
 				return (NULL);
 		pthread_mutex_unlock(&philo->rlock);
