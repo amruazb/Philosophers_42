@@ -6,7 +6,7 @@
 /*   By: aabashee <aabashee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 06:51:55 by aabashee          #+#    #+#             */
-/*   Updated: 2024/06/25 14:53:25 by aabashee         ###   ########.fr       */
+/*   Updated: 2024/06/25 14:55:56 by aabashee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,3 +103,15 @@ void	lock_order(t_philo *philo)
 		pthread_mutex_lock(&philo->lock);
 	}
 }
+/* The function checks whether the philosopher's ID (philo->id) is odd or even by using the modulo operator (%).
+ If the remainder is non-zero, the ID is considered odd.
+If the ID is odd, the function locks the philosopher's own lock (philo->lock) first, and then locks the 
+lock of the next philosopher in the sequence (philo->next->lock).
+If the ID is even, the function locks the lock of the next philosopher in the sequence (philo->next->lock) first, 
+and then locks the philosopher's own lock (philo->lock).
+The reason for this specific locking order is likely to prevent deadlocks. By alternating the locking order between 
+odd and even philosophers, the function ensures that no two philosophers will deadlock each other by trying to acquire the same locks in the same order.
+
+For example, if two philosophers with IDs 1 and 2 try to acquire locks simultaneously, the odd philosopher (ID 1) will 
+lock its own lock first, and then the lock of the next philosopher (ID 2). The even philosopher (ID 2) will lock the lock of the next philosopher (ID 1) first, 
+and then its own lock. This ensures that one philosopher will always be able to acquire both locks, preventing a deadlock. */
